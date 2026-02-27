@@ -76,7 +76,8 @@ export default function MemoryModal({
                 setUploading(false);
 
                 if (!upRes.ok) {
-                    throw new Error('Image upload failed. Please try again.');
+                    const errorData = await upRes.json().catch(() => ({}));
+                    throw new Error(errorData.error || errorData.details || 'Image upload failed. Please try again.');
                 }
                 const upData = await upRes.json();
                 finalImageUrl = upData.imageUrl;
