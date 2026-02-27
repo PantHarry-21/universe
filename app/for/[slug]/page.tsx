@@ -41,7 +41,7 @@ export default async function ProposalPage({ params }: PageProps) {
         hasPasscode: !!passcodeHash,
         createdAt: safeProposal.createdAt.toISOString(),
         updatedAt: safeProposal.updatedAt.toISOString(),
-        memories: safeProposal.memories.map((m) => ({
+        memories: safeProposal.memories.map((m: any) => ({
             ...m,
             date: m.date ? m.date.toISOString() : null,
             createdAt: m.createdAt.toISOString(),
