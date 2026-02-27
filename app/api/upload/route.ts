@@ -48,16 +48,32 @@ export async function POST(request: NextRequest) {
         const fileName = `${slug}/${uuidv4()}.${ext}`;
         console.log(`[POST /api/upload] Uploading to Supabase: ${fileName}`);
 
-        const { error } = await supabaseAdmin.storage
-            .from(BUCKET_NAME)
-            .upload(fileName, buffer, {
-                contentType: file.type,
-                upsert: false,
-            });
+        let uploadResult = null;
+        let retries = 3;
 
-        if (error) {
-            console.error('[POST /api/upload] Supabase upload error:', error);
-            return NextResponse.json({ error: 'Upload failed', details: error }, { status: 500 });
+        while (retries > 0) {
+            try {
+                const { data, error } = await supabaseAdmin.storage
+                    .from(BUCKET_NAME)
+                    .upload(fileName, buffer, {
+                        contentType: file.type,
+                        upsert: false,
+                    });
+
+                if (error) throw error;
+                uploadResult = data;
+                break;
+            } catch (err) {
+                retries--;
+                console.error(`[POST /api/upload] Attempt failed (${3 - retries}/3):`, err);
+                if (retries === 0) {
+                    return NextResponse.json({
+                        error: 'Network connection to storage failed. This may be a regional ISP issue.',
+                        details: err instanceof Error ? err.message : String(err)
+                    }, { status: 500 });
+                }
+                await new Promise(r => setTimeout(r, 1000)); // Wait 1s before retry
+            }
         }
 
         const { data } = supabaseAdmin.storage
@@ -68,6 +84,9 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ imageUrl: data.publicUrl });
     } catch (error) {
         console.error('[POST /api/upload] Unexpected error:', error);
-        return NextResponse.json({ error: 'Internal server error', details: error instanceof Error ? error.message : String(error) }, { status: 500 });
+        return NextResponse.json({
+            error: 'Internal server error',
+            details: error instanceof Error ? error.message : String(error)
+        }, { status: 500 });
     }
 }
