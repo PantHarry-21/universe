@@ -154,7 +154,7 @@ export default function MemoryModal({
             role="dialog"
             aria-label={constellation ? `Edit memory: ${constellation.label}` : 'Memory'}
         >
-            <div className="modal-card">
+            <div className="modal-card" onClick={(e) => e.stopPropagation()}>
                 <div className="modal-header">
                     <h2 className="modal-title">
                         {constellation?.label ?? 'Memory'}

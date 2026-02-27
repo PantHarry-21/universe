@@ -51,6 +51,7 @@ export default function ProposalExperience({
     const [showAdvance, setShowAdvance] = useState(false);
     const [selectedConstellation, setSelectedConstellation] = useState<string | null>(null);
     const [burst, setBurst] = useState(false);
+    const [sceneReady, setSceneReady] = useState(true);
     const timersRef = useRef<ReturnType<typeof setTimeout>[]>([]);
 
     const clearTimers = () => {
@@ -94,7 +95,11 @@ export default function ProposalExperience({
     }, [scene, scheduleLines]);
 
     const advance = () => {
-        if (scene === 'opening') setScene('constellations');
+        if (scene === 'opening') {
+            setSceneReady(false);
+            setScene('constellations');
+            setTimeout(() => setSceneReady(true), 500);
+        }
         else if (scene === 'constellations') setScene('buildup');
         else if (scene === 'buildup') setScene('proposal');
     };
@@ -172,6 +177,7 @@ export default function ProposalExperience({
                         filledIds={filledIds}
                         onHotspotClick={(id) => {
                             if (scene !== 'constellations') return;
+                            if (!sceneReady) return;
                             const hasMemory = memories.some(m => m.constellationId === id);
                             if (isCreator || hasMemory) {
                                 setSelectedConstellation(id);

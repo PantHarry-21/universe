@@ -89,8 +89,8 @@ export default function HomePage() {
               margin: '0 auto',
             }}
           >
-            Create a private, cinematic love experience — with your most cherished
-            memories written in the stars. 💫
+            {/* Create a private, cinematic love experience — with your most cherished
+            memories written in the stars. 💫 */}
           </p>
         </div>
 
