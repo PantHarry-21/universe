@@ -1,11 +1,4 @@
 import { createClient } from '@supabase/supabase-js';
-import dns from 'dns';
-import nodeFetch from 'node-fetch';
-
-// Workaround for regional ISP/Jio issues blocking Supabase connectivity
-// node-fetch respects this setting, whereas Next.js native fetch (undici) ignores it
-dns.setDefaultResultOrder('ipv4first');
-dns.setServers(['8.8.8.8', '1.1.1.1']);
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
@@ -16,10 +9,6 @@ export const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey, {
     auth: {
         persistSession: false,
         autoRefreshToken: false,
-    },
-    global: {
-        // Use node-fetch on the server to bypass Undici's DNS cache/IPv6 issues
-        fetch: (...args) => nodeFetch(...args) as any
     }
 });
 
