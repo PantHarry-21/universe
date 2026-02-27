@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import StarField from '@/components/StarField';
+import FloatingHearts from '@/components/FloatingHearts';
 
 export default function HomePage() {
   const [slug, setSlug] = useState('');
@@ -48,6 +49,7 @@ export default function HomePage() {
   return (
     <div className="scene-container">
       <StarField intensity={0.8} />
+      <FloatingHearts intensity={1.5} />
 
       <div
         style={{
@@ -64,6 +66,7 @@ export default function HomePage() {
       >
         {/* Hero */}
         <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+          <p style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>💕</p>
           <h1
             className="cinematic-line visible gold"
             style={{
@@ -83,10 +86,11 @@ export default function HomePage() {
               letterSpacing: '0.1em',
               maxWidth: '380px',
               lineHeight: 1.7,
+              margin: '0 auto',
             }}
           >
-            Create a private, cinematic proposal experience — with your own
-            memories written in the stars.
+            Create a private, cinematic love experience — with your most cherished
+            memories written in the stars. 💫
           </p>
         </div>
 
@@ -95,7 +99,7 @@ export default function HomePage() {
             style={{
               width: '100%',
               maxWidth: '480px',
-              background: 'rgba(11,16,38,0.8)',
+              background: 'rgba(15,10,30,0.85)',
               border: '1px solid var(--glass-border)',
               borderRadius: '16px',
               padding: '2rem',
@@ -110,15 +114,15 @@ export default function HomePage() {
               style={{
                 fontFamily: 'var(--font-serif)',
                 fontSize: '1.4rem',
-                color: 'var(--stardust-gold)',
+                color: 'var(--love-rose)',
               }}
             >
-              ✦ Your universe is ready.
+              💕 Your love story is ready.
             </p>
             <div style={{ position: 'relative' }}>
               <div
                 style={{
-                  background: 'rgba(246,193,119,0.06)',
+                  background: 'rgba(255,107,129,0.06)',
                   border: '1px solid var(--glass-border)',
                   borderRadius: '8px',
                   padding: '0.75rem 1rem',
@@ -137,7 +141,7 @@ export default function HomePage() {
                   const btn = document.getElementById('copy-btn');
                   if (btn) {
                     const original = btn.innerText;
-                    btn.innerText = 'Copied!';
+                    btn.innerText = 'Copied! 💕';
                     setTimeout(() => { btn.innerText = original; }, 2000);
                   }
                 }}
@@ -147,9 +151,9 @@ export default function HomePage() {
                   right: '0.5rem',
                   top: '50%',
                   transform: 'translateY(-50%)',
-                  background: 'rgba(246,193,119,0.1)',
+                  background: 'rgba(255,107,129,0.1)',
                   border: '1px solid var(--glass-border)',
-                  color: 'var(--stardust-gold)',
+                  color: 'var(--love-rose)',
                   fontSize: '0.65rem',
                   padding: '4px 8px',
                   borderRadius: '4px',
@@ -163,7 +167,7 @@ export default function HomePage() {
               </button>
             </div>
             <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontFamily: 'var(--font-sans)' }}>
-              Share this link privately. Open it to start adding memories.
+              Share this link with your loved one. Open it to start adding memories. 💫
             </p>
             <a
               href={`/for/${createdSlug}`}
@@ -171,9 +175,9 @@ export default function HomePage() {
                 display: 'inline-block',
                 padding: '0.875rem 2rem',
                 borderRadius: '100px',
-                border: '1px solid rgba(246,193,119,0.4)',
-                background: 'linear-gradient(135deg, rgba(246,193,119,0.15), rgba(246,193,119,0.08))',
-                color: 'var(--stardust-gold)',
+                border: '1px solid rgba(255,107,129,0.4)',
+                background: 'linear-gradient(135deg, rgba(255,107,129,0.2), rgba(255,154,172,0.1))',
+                color: 'var(--love-rose)',
                 fontFamily: 'var(--font-sans)',
                 fontSize: '0.8rem',
                 fontWeight: 500,
@@ -183,7 +187,7 @@ export default function HomePage() {
                 transition: 'all 0.3s ease',
               }}
             >
-              Open the experience →
+              Open the experience 💕
             </a>
           </div>
         ) : (
@@ -192,7 +196,7 @@ export default function HomePage() {
             style={{
               width: '100%',
               maxWidth: '420px',
-              background: 'rgba(11,16,38,0.8)',
+              background: 'rgba(15,10,30,0.85)',
               border: '1px solid var(--glass-border)',
               borderRadius: '16px',
               padding: '2rem',
@@ -207,16 +211,16 @@ export default function HomePage() {
                 fontFamily: 'var(--font-serif)',
                 fontSize: '1.3rem',
                 fontWeight: 400,
-                color: 'var(--soft-white)',
+                color: 'var(--love-rose-soft)',
                 marginBottom: '0.25rem',
               }}
             >
-              Create your experience
+              Create your love story ❤️
             </h2>
 
             <div className="field-group" style={{ marginBottom: 0 }}>
               <label className="field-label" htmlFor="slug-input">
-                Your unique link slug
+                Your unique link
               </label>
               <input
                 id="slug-input"
@@ -224,7 +228,7 @@ export default function HomePage() {
                 type="text"
                 value={slug}
                 onChange={(e) => setSlug(e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, '-'))}
-                placeholder="e.g. for-sarah"
+                placeholder="e.g. for-my-love"
                 required
                 maxLength={60}
                 autoFocus
@@ -239,7 +243,7 @@ export default function HomePage() {
                     fontFamily: 'var(--font-sans)',
                   }}
                 >
-                  {appUrl}/for/<strong style={{ color: 'var(--stardust-gold)' }}>{slug}</strong>
+                  {appUrl}/for/<strong style={{ color: 'var(--love-rose)' }}>{slug}</strong>
                 </p>
               )}
             </div>
@@ -254,7 +258,7 @@ export default function HomePage() {
                 type="password"
                 value={passcode}
                 onChange={(e) => setPasscode(e.target.value)}
-                placeholder="Protect with a passcode…"
+                placeholder="Protect with a secret passcode…"
                 autoComplete="new-password"
               />
             </div>
@@ -271,7 +275,7 @@ export default function HomePage() {
               disabled={step === 'creating' || !slug.trim()}
               style={{ marginTop: '0.25rem' }}
             >
-              {step === 'creating' ? 'Creating…' : '✦ Create the universe'}
+              {step === 'creating' ? 'Creating…' : '💕 Create our love story'}
             </button>
           </form>
         )}

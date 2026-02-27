@@ -15,18 +15,22 @@ function randomBetween(a: number, b: number) {
 
 function randomColor() {
     const colors = [
-        '#F8FAFC',
-        '#F6C177',
-        '#fffde7',
-        '#e8f4fd',
-        '#fff9f0',
+        '#F8FAFC',     // white
+        '#F6C177',     // gold
+        '#FF9AAC',     // soft rose
+        '#FFB6C1',     // light pink
+        '#FF6B81',     // rose
+        '#fffde7',     // warm white
+        '#FFD1DC',     // blush
     ];
     const rand = Math.random();
-    if (rand < 0.65) return colors[0];
-    if (rand < 0.80) return colors[1];
-    if (rand < 0.90) return colors[2];
-    if (rand < 0.95) return colors[3];
-    return colors[4];
+    if (rand < 0.40) return colors[0];
+    if (rand < 0.55) return colors[1];
+    if (rand < 0.70) return colors[2];
+    if (rand < 0.80) return colors[3];
+    if (rand < 0.88) return colors[4];
+    if (rand < 0.94) return colors[5];
+    return colors[6];
 }
 
 export default function StarField({ particleBurst = false, gatherToCenter = false, intensity = 1 }: StarFieldProps) {

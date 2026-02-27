@@ -1,17 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap');
 
 /* ============================================
-   CSS DESIGN TOKENS
+   CSS DESIGN TOKENS — LOVE THEME
    ============================================ */
 :root {
-  --deep-navy: #0B1026;
-  --midnight: #050816;
+  --deep-navy: #0B0818;
+  --midnight: #050510;
+  --love-rose: #FF6B81;
+  --love-rose-soft: #FF9AAC;
+  --love-pink: #FFB6C1;
+  --love-blush: #FFD1DC;
   --stardust-gold: #F6C177;
   --stardust-gold-dim: rgba(246, 193, 119, 0.3);
   --stardust-gold-glow: rgba(246, 193, 119, 0.15);
+  --rose-glow: rgba(255, 107, 129, 0.15);
+  --rose-dim: rgba(255, 107, 129, 0.3);
+  --rose-border: rgba(255, 107, 129, 0.12);
   --soft-white: #F8FAFC;
-  --glass-bg: rgba(11, 16, 38, 0.7);
-  --glass-border: rgba(246, 193, 119, 0.12);
+  --glass-bg: rgba(11, 8, 24, 0.75);
+  --glass-border: rgba(255, 154, 172, 0.15);
   --text-muted: rgba(248, 250, 252, 0.45);
   --font-serif: 'Cormorant Garamond', Georgia, serif;
   --font-sans: 'Inter', system-ui, sans-serif;
@@ -62,14 +69,17 @@ body {
 }
 
 /* ============================================
-   SCENE CONTAINER
+   SCENE CONTAINER — romantic gradient
    ============================================ */
 .scene-container {
   position: relative;
   width: 100%;
   height: 100svh;
   overflow: hidden;
-  background: radial-gradient(ellipse at 30% 40%, #0d1b3e 0%, #070d20 40%, var(--midnight) 100%);
+  background: radial-gradient(ellipse at 30% 40%,
+      rgba(40, 10, 30, 1) 0%,
+      rgba(15, 5, 25, 1) 40%,
+      var(--midnight) 100%);
 }
 
 /* ============================================
@@ -111,7 +121,7 @@ body {
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 1.4s ease, transform 1.4s ease;
-  text-shadow: 0 0 60px rgba(246, 193, 119, 0.25);
+  text-shadow: 0 0 60px rgba(255, 107, 129, 0.2);
 }
 
 .cinematic-line.visible {
@@ -120,8 +130,8 @@ body {
 }
 
 .cinematic-line.gold {
-  color: var(--stardust-gold);
-  text-shadow: 0 0 40px rgba(246, 193, 119, 0.5), 0 0 80px rgba(246, 193, 119, 0.2);
+  color: var(--love-rose);
+  text-shadow: 0 0 40px rgba(255, 107, 129, 0.5), 0 0 80px rgba(255, 107, 129, 0.2);
 }
 
 .cinematic-line.large {
@@ -161,9 +171,9 @@ body {
 }
 
 .advance-btn:hover {
-  border-color: var(--stardust-gold-dim);
-  color: var(--stardust-gold);
-  box-shadow: 0 0 20px var(--stardust-gold-glow);
+  border-color: var(--rose-dim);
+  color: var(--love-rose);
+  box-shadow: 0 0 20px var(--rose-glow);
 }
 
 /* ============================================
@@ -186,8 +196,8 @@ body {
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  border: 1px solid var(--stardust-gold-dim);
-  background: var(--stardust-gold-glow);
+  border: 1px solid var(--rose-dim);
+  background: var(--rose-glow);
   backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
@@ -197,23 +207,23 @@ body {
 }
 
 .constellation-hotspot:hover .constellation-hotspot-inner {
-  border-color: var(--stardust-gold);
-  background: rgba(246, 193, 119, 0.25);
-  box-shadow: 0 0 30px rgba(246, 193, 119, 0.4), 0 0 60px rgba(246, 193, 119, 0.15);
+  border-color: var(--love-rose);
+  background: rgba(255, 107, 129, 0.25);
+  box-shadow: 0 0 30px rgba(255, 107, 129, 0.4), 0 0 60px rgba(255, 107, 129, 0.15);
   transform: scale(1.2);
 }
 
 .constellation-hotspot.filled .constellation-hotspot-inner {
-  border-color: rgba(246, 193, 119, 0.7);
-  background: rgba(246, 193, 119, 0.2);
+  border-color: rgba(255, 107, 129, 0.7);
+  background: rgba(255, 107, 129, 0.2);
 }
 
 .hotspot-dot {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--stardust-gold);
-  box-shadow: 0 0 8px var(--stardust-gold);
+  background: var(--love-rose);
+  box-shadow: 0 0 8px var(--love-rose);
 }
 
 .constellation-label {
@@ -233,14 +243,14 @@ body {
 }
 
 .constellation-hotspot:hover .constellation-label {
-  color: var(--stardust-gold);
+  color: var(--love-rose);
 }
 
 @keyframes pulse-ring {
 
   0%,
   100% {
-    box-shadow: 0 0 0 0 var(--stardust-gold-glow);
+    box-shadow: 0 0 0 0 var(--rose-glow);
   }
 
   50% {
@@ -255,38 +265,48 @@ body {
   position: fixed;
   inset: 0;
   z-index: 100;
-  background: rgba(5, 8, 22, 0.85);
-  backdrop-filter: blur(12px);
+  background: rgba(5, 5, 16, 0.85);
+  backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 1.5rem;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.4s ease;
+  animation: fade-in 0.3s ease;
 }
 
-.modal-overlay.open {
-  opacity: 1;
-  pointer-events: all;
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 .modal-card {
   width: 100%;
-  max-width: 520px;
-  background: linear-gradient(135deg, rgba(11, 16, 38, 0.95) 0%, rgba(7, 13, 32, 0.98) 100%);
+  max-width: 440px;
+  max-height: 85vh;
+  overflow-y: auto;
+  background: rgba(15, 10, 30, 0.95);
   border: 1px solid var(--glass-border);
   border-radius: 16px;
   padding: 2rem;
-  transform: scale(0.95) translateY(20px);
-  transition: transform 0.4s ease;
-  box-shadow: 0 0 80px rgba(246, 193, 119, 0.05), 0 30px 60px rgba(0, 0, 0, 0.5);
-  max-height: 90svh;
-  overflow-y: auto;
+  backdrop-filter: blur(20px);
+  animation: slide-up 0.4s ease;
 }
 
-.modal-overlay.open .modal-card {
-  transform: scale(1) translateY(0);
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .modal-card::-webkit-scrollbar {
@@ -313,7 +333,7 @@ body {
   font-family: var(--font-serif);
   font-size: 1.5rem;
   font-weight: 400;
-  color: var(--soft-white);
+  color: var(--love-rose-soft);
   letter-spacing: 0.02em;
 }
 
@@ -334,8 +354,8 @@ body {
 }
 
 .modal-close:hover {
-  border-color: var(--stardust-gold-dim);
-  color: var(--stardust-gold);
+  border-color: var(--rose-dim);
+  color: var(--love-rose);
 }
 
 /* Image Upload Zone */
@@ -354,17 +374,17 @@ body {
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
-  background: rgba(246, 193, 119, 0.02);
+  background: rgba(255, 107, 129, 0.02);
 }
 
 .image-upload-zone:hover {
-  border-color: var(--stardust-gold-dim);
-  background: var(--stardust-gold-glow);
+  border-color: var(--rose-dim);
+  background: var(--rose-glow);
 }
 
 .image-upload-zone.has-image {
   border-style: solid;
-  border-color: var(--stardust-gold-dim);
+  border-color: var(--rose-dim);
 }
 
 .image-upload-zone img {
@@ -376,13 +396,12 @@ body {
   background: rgba(0, 0, 0, 0.4);
   border-radius: 11px;
   padding: 8px;
-  /* Give some breathing room */
 }
 
 .upload-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(5, 8, 22, 0.7);
+  background: rgba(5, 5, 16, 0.7);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -398,7 +417,7 @@ body {
 }
 
 .upload-icon {
-  color: var(--stardust-gold);
+  color: var(--love-rose);
   font-size: 1.5rem;
 }
 
@@ -442,8 +461,8 @@ body {
 
 .field-input:focus,
 .field-textarea:focus {
-  border-color: var(--stardust-gold-dim);
-  box-shadow: 0 0 0 3px var(--stardust-gold-glow);
+  border-color: var(--rose-dim);
+  box-shadow: 0 0 0 3px var(--rose-glow);
 }
 
 .field-textarea {
@@ -460,14 +479,14 @@ body {
   color-scheme: dark;
 }
 
-/* Save Button */
+/* Save Button — romantic pink gradient */
 .save-btn {
   width: 100%;
   padding: 0.875rem;
-  background: linear-gradient(135deg, rgba(246, 193, 119, 0.15), rgba(246, 193, 119, 0.08));
-  border: 1px solid rgba(246, 193, 119, 0.4);
+  background: linear-gradient(135deg, rgba(255, 107, 129, 0.2), rgba(255, 154, 172, 0.1));
+  border: 1px solid rgba(255, 107, 129, 0.4);
   border-radius: 8px;
-  color: var(--stardust-gold);
+  color: var(--love-rose);
   font-family: var(--font-sans);
   font-size: 0.8rem;
   font-weight: 500;
@@ -479,8 +498,8 @@ body {
 }
 
 .save-btn:hover {
-  background: linear-gradient(135deg, rgba(246, 193, 119, 0.25), rgba(246, 193, 119, 0.15));
-  box-shadow: 0 0 30px rgba(246, 193, 119, 0.2);
+  background: linear-gradient(135deg, rgba(255, 107, 129, 0.35), rgba(255, 154, 172, 0.2));
+  box-shadow: 0 0 30px rgba(255, 107, 129, 0.25);
 }
 
 .save-btn:disabled {
@@ -491,9 +510,9 @@ body {
 /* Skeleton loader */
 .skeleton {
   background: linear-gradient(90deg,
-      rgba(246, 193, 119, 0.04) 0%,
-      rgba(246, 193, 119, 0.09) 50%,
-      rgba(246, 193, 119, 0.04) 100%);
+      rgba(255, 107, 129, 0.04) 0%,
+      rgba(255, 107, 129, 0.09) 50%,
+      rgba(255, 107, 129, 0.04) 100%);
   background-size: 200% 100%;
   animation: shimmer 1.5s ease-in-out infinite;
   border-radius: 8px;
@@ -533,14 +552,14 @@ body {
 }
 
 .music-toggle:hover {
-  border-color: var(--stardust-gold-dim);
-  color: var(--stardust-gold);
-  box-shadow: 0 0 20px var(--stardust-gold-glow);
+  border-color: var(--rose-dim);
+  color: var(--love-rose);
+  box-shadow: 0 0 20px var(--rose-glow);
 }
 
 .music-toggle.playing {
-  color: var(--stardust-gold);
-  border-color: var(--stardust-gold-dim);
+  color: var(--love-rose);
+  border-color: var(--rose-dim);
   animation: music-pulse 2s ease-in-out infinite;
 }
 
@@ -548,16 +567,16 @@ body {
 
   0%,
   100% {
-    box-shadow: 0 0 10px var(--stardust-gold-glow);
+    box-shadow: 0 0 10px var(--rose-glow);
   }
 
   50% {
-    box-shadow: 0 0 25px rgba(246, 193, 119, 0.25);
+    box-shadow: 0 0 25px rgba(255, 107, 129, 0.3);
   }
 }
 
 /* ============================================
-   PROPOSAL SCENE BUTTONS
+   PROPOSAL SCENE BUTTONS — Romantic
    ============================================ */
 .proposal-buttons {
   display: flex;
@@ -580,14 +599,14 @@ body {
 }
 
 .proposal-btn-yes {
-  background: linear-gradient(135deg, rgba(246, 193, 119, 0.2), rgba(246, 193, 119, 0.1));
-  border: 1px solid rgba(246, 193, 119, 0.6);
-  color: var(--stardust-gold);
+  background: linear-gradient(135deg, rgba(255, 107, 129, 0.25), rgba(255, 154, 172, 0.15));
+  border: 1px solid rgba(255, 107, 129, 0.6);
+  color: var(--love-rose);
 }
 
 .proposal-btn-yes:hover {
-  background: linear-gradient(135deg, rgba(246, 193, 119, 0.35), rgba(246, 193, 119, 0.2));
-  box-shadow: 0 0 50px rgba(246, 193, 119, 0.3), 0 0 100px rgba(246, 193, 119, 0.1);
+  background: linear-gradient(135deg, rgba(255, 107, 129, 0.4), rgba(255, 154, 172, 0.25));
+  box-shadow: 0 0 50px rgba(255, 107, 129, 0.35), 0 0 100px rgba(255, 107, 129, 0.15);
   transform: scale(1.05);
 }
 
@@ -598,8 +617,8 @@ body {
 }
 
 .proposal-btn-forever:hover {
-  border-color: var(--stardust-gold-dim);
-  color: var(--stardust-gold);
+  border-color: var(--rose-dim);
+  color: var(--love-rose);
 }
 
 /* ============================================
@@ -630,9 +649,9 @@ body {
 }
 
 .celebrate-btn:hover {
-  border-color: var(--stardust-gold-dim);
-  color: var(--stardust-gold);
-  box-shadow: 0 0 20px var(--stardust-gold-glow);
+  border-color: var(--rose-dim);
+  color: var(--love-rose);
+  box-shadow: 0 0 20px var(--rose-glow);
 }
 
 /* ============================================
@@ -655,7 +674,7 @@ body {
   font-family: var(--font-serif);
   font-size: clamp(2rem, 5vw, 3rem);
   font-weight: 300;
-  color: var(--soft-white);
+  color: var(--love-rose-soft);
   text-align: center;
   letter-spacing: 0.04em;
 }
@@ -692,15 +711,15 @@ body {
 }
 
 .passcode-input:focus {
-  border-color: var(--stardust-gold-dim);
+  border-color: var(--rose-dim);
 }
 
 .passcode-submit {
   padding: 0.875rem 2rem;
   border-radius: 100px;
-  border: 1px solid rgba(246, 193, 119, 0.4);
-  background: linear-gradient(135deg, rgba(246, 193, 119, 0.15), rgba(246, 193, 119, 0.08));
-  color: var(--stardust-gold);
+  border: 1px solid rgba(255, 107, 129, 0.4);
+  background: linear-gradient(135deg, rgba(255, 107, 129, 0.2), rgba(255, 154, 172, 0.1));
+  color: var(--love-rose);
   font-family: var(--font-sans);
   font-size: 0.8rem;
   font-weight: 500;
@@ -711,13 +730,38 @@ body {
 }
 
 .passcode-submit:hover {
-  box-shadow: 0 0 30px rgba(246, 193, 119, 0.2);
+  box-shadow: 0 0 30px rgba(255, 107, 129, 0.25);
 }
 
 .passcode-error {
   color: rgba(255, 120, 120, 0.8);
   font-size: 0.8rem;
   font-family: var(--font-sans);
+}
+
+/* ============================================
+   DELETE / REMOVE BUTTON
+   ============================================ */
+.delete-btn {
+  width: 100%;
+  padding: 0.75rem;
+  background: transparent;
+  border: 1px solid rgba(255, 80, 80, 0.3);
+  border-radius: 8px;
+  color: rgba(255, 120, 120, 0.7);
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
+}
+
+.delete-btn:hover {
+  border-color: rgba(255, 80, 80, 0.6);
+  color: rgba(255, 120, 120, 1);
+  background: rgba(255, 80, 80, 0.08);
 }
 
 /* ============================================
@@ -737,7 +781,7 @@ body {
   width: 40px;
   height: 40px;
   border: 1px solid var(--glass-border);
-  border-top-color: var(--stardust-gold);
+  border-top-color: var(--love-rose);
   border-radius: 50%;
   animation: spin 1.2s ease-in-out infinite;
 }

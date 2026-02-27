@@ -3,9 +3,9 @@ import { ConstellationConfig } from './types';
 export const CONSTELLATIONS: ConstellationConfig[] = [
     {
         id: 'c1',
-        label: 'The Night We Met',
+        label: '💫 The Night We Met',
         defaultTitle: 'The Night We Met',
-        defaultCaption: 'A moment written in the stars before we even knew it.',
+        defaultCaption: 'A moment written in the stars before our hearts even knew it.',
         cx: 22,
         cy: 28,
         stars: [
@@ -19,9 +19,9 @@ export const CONSTELLATIONS: ConstellationConfig[] = [
     },
     {
         id: 'c2',
-        label: 'The First Adventure',
-        defaultTitle: 'The First Adventure',
-        defaultCaption: 'We wandered together and found something neither of us expected.',
+        label: '💕 Our First Adventure',
+        defaultTitle: 'Our First Adventure',
+        defaultCaption: 'We wandered together and found a love neither of us expected.',
         cx: 72,
         cy: 24,
         stars: [
@@ -35,9 +35,9 @@ export const CONSTELLATIONS: ConstellationConfig[] = [
     },
     {
         id: 'c3',
-        label: 'The Moment I Knew',
+        label: '❤️ The Moment I Knew',
         defaultTitle: 'The Moment I Knew',
-        defaultCaption: 'It was quiet. Ordinary. And then it hit me — you are it.',
+        defaultCaption: 'It was quiet. Ordinary. And then it hit me — you are the one.',
         cx: 50,
         cy: 35,
         stars: [
@@ -52,9 +52,9 @@ export const CONSTELLATIONS: ConstellationConfig[] = [
     },
     {
         id: 'c4',
-        label: 'Every Ordinary Day',
-        defaultTitle: 'Every Ordinary Day',
-        defaultCaption: 'The quiet mornings. The long drives. The everyday magic.',
+        label: '🌙 Our Little Moments',
+        defaultTitle: 'Our Little Moments',
+        defaultCaption: 'The quiet mornings. The long drives. The everyday love.',
         cx: 28,
         cy: 62,
         stars: [
@@ -68,8 +68,8 @@ export const CONSTELLATIONS: ConstellationConfig[] = [
     },
     {
         id: 'c5',
-        label: 'When You Laughed',
-        defaultTitle: 'When You Laughed',
+        label: '✨ Your Beautiful Laugh',
+        defaultTitle: 'Your Beautiful Laugh',
         defaultCaption: 'That laugh. I would cross galaxies just to hear it again.',
         cx: 74,
         cy: 65,
@@ -85,9 +85,9 @@ export const CONSTELLATIONS: ConstellationConfig[] = [
     // Ring constellation used in build-up / proposal scene
     {
         id: 'ring1',
-        label: 'The Ring',
+        label: '💍 Forever',
         defaultTitle: 'Forever',
-        defaultCaption: 'The circle with no beginning and no end.',
+        defaultCaption: 'The circle with no beginning and no end — just like our love.',
         cx: 50,
         cy: 68,
         stars: [

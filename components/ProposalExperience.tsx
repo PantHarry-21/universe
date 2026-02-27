@@ -5,6 +5,7 @@ import StarField from '@/components/StarField';
 import ConstellationOverlay from '@/components/ConstellationOverlay';
 import MemoryModal from '@/components/MemoryModal';
 import MusicToggle from '@/components/MusicToggle';
+import FloatingHearts from '@/components/FloatingHearts';
 import { Memory, Proposal, Scene } from '@/lib/types';
 import { CONSTELLATIONS, MEMORY_CONSTELLATIONS } from '@/lib/constellations';
 
@@ -15,25 +16,28 @@ interface ProposalExperienceProps {
 }
 
 const OPENING_LINES = [
-    { text: 'Out of 8 billion people…', delay: 600 },
+    { text: 'Out of 8 billion hearts…', delay: 600 },
     { text: 'Somehow…', delay: 2400 },
-    { text: 'The universe led me to you.', delay: 4200, gold: true },
+    { text: 'Mine found yours.', delay: 4200, gold: true },
+    { text: '💕', delay: 5800, gold: true },
 ];
 
 const BUILDUP_LINES = [
-    { text: 'And every star…', delay: 400 },
-    { text: 'Every moment…', delay: 2000 },
-    { text: 'Every path…', delay: 3600 },
-    { text: 'Led here.', delay: 5200, gold: true },
+    { text: 'Every heartbeat…', delay: 400 },
+    { text: 'Every stolen glance…', delay: 2000 },
+    { text: 'Every whispered "I love you"…', delay: 3600 },
+    { text: 'Led here. To us. ❤️', delay: 5200, gold: true },
 ];
 
 const PROPOSAL_LINES = [
-    { text: 'There is only one future I want.', delay: 600 },
-    { text: 'Will you marry me?', delay: 2800, gold: true, large: true },
+    { text: 'You are my forever person.', delay: 600 },
+    { text: 'My heart chose you before I even knew.', delay: 2800 },
+    { text: 'Will you marry me? 💍', delay: 5000, gold: true, large: true },
 ];
 
 const CELEBRATION_LINES = [
-    { text: 'The universe got it right.', delay: 300, gold: true, large: true },
+    { text: '💖 Two hearts. One forever. 💖', delay: 300, gold: true, large: true },
+    { text: 'Our love story is written in the stars.', delay: 2500 },
 ];
 
 export default function ProposalExperience({
@@ -107,17 +111,17 @@ export default function ProposalExperience({
 
     const handleDownload = () => {
         const el = document.createElement('a');
-        el.href = `data:text/plain;charset=utf-8,Our Constellation — ${proposal.title || 'The Universe Chose You'}\n\nMemories:\n${memories.map((m) => `• ${m.title}: ${m.caption || ''}`).join('\n')}`;
-        el.download = 'our-constellation.txt';
+        el.href = `data:text/plain;charset=utf-8,Our Love Story — ${proposal.title || 'The Universe Chose You'}\n\nMemories:\n${memories.map((m) => `💕 ${m.title}: ${m.caption || ''}`).join('\n')}`;
+        el.download = 'our-love-story.txt';
         el.click();
     };
 
     const handleShare = () => {
         if (navigator.share) {
-            navigator.share({ title: 'The Universe Chose You', url: window.location.href });
+            navigator.share({ title: 'The Universe Chose You 💕', url: window.location.href });
         } else {
             navigator.clipboard.writeText(window.location.href);
-            alert('Link copied to clipboard!');
+            alert('Link copied to clipboard! 💕');
         }
     };
 
@@ -146,6 +150,8 @@ export default function ProposalExperience({
 
     const currentLines = getLinesFor(scene);
 
+    const heartsIntensity = scene === 'celebration' ? 3 : scene === 'proposal' ? 2 : 1;
+
     return (
         <div className="scene-container">
             {/* Background star field — always present */}
@@ -154,6 +160,9 @@ export default function ProposalExperience({
                 gatherToCenter={scene === 'buildup'}
                 intensity={scene === 'proposal' || scene === 'celebration' ? 1.3 : 1}
             />
+
+            {/* Floating hearts — always present, intensity varies */}
+            <FloatingHearts intensity={heartsIntensity} scene={scene} />
 
             {/* Constellation lines & hotspots */}
             {(scene === 'constellations' || scene === 'buildup' || scene === 'proposal' || scene === 'celebration') && (
@@ -209,10 +218,10 @@ export default function ProposalExperience({
                     {scene === 'proposal' && showAdvance && (
                         <div className="proposal-buttons" style={{ marginTop: '2rem' }}>
                             <button className="proposal-btn proposal-btn-yes" onClick={handleYes}>
-                                Yes 💍
+                                Yes, Forever 💍
                             </button>
                             <button className="proposal-btn proposal-btn-forever" onClick={handleYes}>
-                                Forever.
+                                A thousand times yes 💕
                             </button>
                         </div>
                     )}
@@ -221,10 +230,10 @@ export default function ProposalExperience({
                     {scene === 'celebration' && showAdvance && (
                         <div className="celebration-actions" style={{ marginTop: '2rem' }}>
                             <button className="celebrate-btn" onClick={handleReplay}>
-                                ↺ &nbsp;Replay the journey
+                                ↺ &nbsp;Replay our love story
                             </button>
                             <button className="celebrate-btn" onClick={handleDownload}>
-                                ✦ &nbsp;Download our constellation
+                                💕 &nbsp;Download our love story
                             </button>
                             <button className="celebrate-btn" onClick={handleShare}>
                                 ✉ &nbsp;Share this moment
@@ -244,7 +253,7 @@ export default function ProposalExperience({
                         className="cinematic-line visible"
                         style={{ fontSize: 'clamp(1rem, 2.5vw, 1.4rem)', opacity: 0.55 }}
                     >
-                        Touch a star to remember.
+                        Touch a star to relive our love. 💫
                     </p>
                 </div>
             )}
@@ -256,7 +265,7 @@ export default function ProposalExperience({
                     onClick={advance}
                     aria-label="Continue to next scene"
                 >
-                    {scene === 'constellations' ? 'Continue the journey →' : 'Continue →'}
+                    {scene === 'constellations' ? 'Continue our journey 💕' : 'Continue →'}
                 </button>
             )}
 

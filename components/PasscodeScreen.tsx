@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import StarField from '@/components/StarField';
+import FloatingHearts from '@/components/FloatingHearts';
 
 interface PasscodeScreenProps {
     slug: string;
@@ -26,9 +27,11 @@ export default function PasscodeScreen({ slug, onUnlocked }: PasscodeScreenProps
             });
             const data = await res.json();
             if (data.valid) {
+                // Dispatch event to start music
+                window.dispatchEvent(new CustomEvent('start-music'));
                 onUnlocked();
             } else {
-                setError('Incorrect passcode. Try again.');
+                setError('Incorrect passcode. Try again. 💔');
                 setValue('');
             }
         } catch {
@@ -41,9 +44,11 @@ export default function PasscodeScreen({ slug, onUnlocked }: PasscodeScreenProps
     return (
         <div className="scene-container">
             <StarField intensity={0.7} />
+            <FloatingHearts intensity={0.8} />
             <div className="passcode-screen" style={{ background: 'transparent' }}>
-                <p className="passcode-title">This moment is private.</p>
-                <p className="passcode-subtitle">Enter your passcode to continue.</p>
+                <p style={{ fontSize: '2.5rem' }}>💕</p>
+                <p className="passcode-title">This love story is private.</p>
+                <p className="passcode-subtitle">Enter your secret passcode to continue. 💫</p>
                 <form className="passcode-form" onSubmit={handleSubmit}>
                     <input
                         className="passcode-input"
@@ -61,7 +66,7 @@ export default function PasscodeScreen({ slug, onUnlocked }: PasscodeScreenProps
                         type="submit"
                         disabled={checking || !value}
                     >
-                        {checking ? 'Checking…' : 'Enter ✦'}
+                        {checking ? 'Checking…' : 'Enter 💕'}
                     </button>
                 </form>
             </div>
