@@ -1,15 +1,18 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import StarField from '@/components/StarField';
 import FloatingHearts from '@/components/FloatingHearts';
 
 export default function HomePage() {
+  const [mounted, setMounted] = useState(false);
   const [slug, setSlug] = useState('');
   const [passcode, setPasscode] = useState('');
   const [step, setStep] = useState<'form' | 'creating' | 'done'>('form');
   const [createdSlug, setCreatedSlug] = useState('');
   const [error, setError] = useState('');
+
+  useEffect(() => { setMounted(true); }, []);
 
   const handleCreate = async (e: React.FormEvent) => {
     e.preventDefault();

@@ -146,13 +146,15 @@ export default function MemoryModal({
         if (e.target === e.currentTarget) onClose();
     };
 
+    if (!isOpen || !constellation) return null;
+
     return (
         <div
-            className={`modal-overlay${isOpen ? ' open' : ''}`}
+            className="modal-overlay open"
             onClick={handleOverlayClick}
             aria-modal="true"
             role="dialog"
-            aria-label={constellation ? `Edit memory: ${constellation.label}` : 'Memory'}
+            aria-label={`Edit memory: ${constellation.label}`}
         >
             <div className="modal-card" onClick={(e) => e.stopPropagation()}>
                 <div className="modal-header">

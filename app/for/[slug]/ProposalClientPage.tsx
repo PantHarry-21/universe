@@ -11,17 +11,37 @@ interface ProposalClientPageProps {
 }
 
 export default function ProposalClientPage({ proposal, slug }: ProposalClientPageProps) {
+    const [mounted, setMounted] = useState(false);
     const [unlocked, setUnlocked] = useState(!proposal.hasPasscode);
-
-    // Check if current user is the creator
     const [isCreator, setIsCreator] = useState(false);
 
+    // Only render after mount to avoid hydration mismatches
+    // (localStorage, window, etc. don't exist on server)
     useEffect(() => {
+        setMounted(true);
         const token = localStorage.getItem(`creator-token-${slug}`);
         if (token && proposal.creatorToken === token) {
             setIsCreator(true);
         }
     }, [slug, proposal.creatorToken]);
+
+    // Show a loading state until client has mounted
+    if (!mounted) {
+        return (
+            <div className="scene-container">
+                <div style={{
+                    position: 'absolute',
+                    inset: 0,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    background: 'var(--midnight, #050510)',
+                }}>
+                    <div className="star-spinner" />
+                </div>
+            </div>
+        );
+    }
 
     if (!unlocked) {
         return <PasscodeScreen slug={slug} onUnlocked={() => setUnlocked(true)} />;
