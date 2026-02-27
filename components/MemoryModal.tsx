@@ -29,7 +29,6 @@ export default function MemoryModal({
     const [date, setDate] = useState('');
     const [imageUrl, setImageUrl] = useState<string | null>(null);
     const [imagePreview, setImagePreview] = useState<string | null>(null);
-    const [uploading, setUploading] = useState(false);
     const [saving, setSaving] = useState(false);
     const [error, setError] = useState('');
     const fileRef = useRef<HTMLInputElement>(null);
@@ -50,8 +49,38 @@ export default function MemoryModal({
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (!file) return;
-        pendingFileRef.current = file;
-        setImagePreview(URL.createObjectURL(file));
+
+        // Perform fast client-side compression to avoid storage timeouts
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            const img = new Image();
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                let width = img.width;
+                let height = img.height;
+                const MAX_SIZE = 800; // Resize to max 800px width/height
+
+                if (width > height && width > MAX_SIZE) {
+                    height = Math.round((height * MAX_SIZE) / width);
+                    width = MAX_SIZE;
+                } else if (height > MAX_SIZE) {
+                    width = Math.round((width * MAX_SIZE) / height);
+                    height = MAX_SIZE;
+                }
+
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext('2d');
+                ctx?.drawImage(img, 0, 0, width, height);
+
+                // Compress to fast, lightweight JPEG base64 string
+                const compressedBase64 = canvas.toDataURL('image/jpeg', 0.7);
+                setImagePreview(compressedBase64);
+                pendingFileRef.current = file; // Still track that a file was added
+            };
+            img.src = event.target?.result as string;
+        };
+        reader.readAsDataURL(file);
     };
 
     const handleSave = async () => {
@@ -62,27 +91,10 @@ export default function MemoryModal({
         try {
             let finalImageUrl = imageUrl;
 
-            // Upload new image if selected
-            if (pendingFileRef.current) {
-                setUploading(true);
-                const fd = new FormData();
-                fd.append('file', pendingFileRef.current);
-                fd.append('slug', slug);
-                const upRes = await fetch('/api/upload', {
-                    method: 'POST',
-                    body: fd,
-                    headers: {
-                        'x-creator-token': localStorage.getItem(`creator-token-${slug}`) || ''
-                    }
-                });
-                setUploading(false);
-
-                if (!upRes.ok) {
-                    const errorData = await upRes.json().catch(() => ({}));
-                    throw new Error(errorData.error || errorData.details || 'Image upload failed. Please try again.');
-                }
-                const upData = await upRes.json();
-                finalImageUrl = upData.imageUrl;
+            // Since we compressed it to base64, we don't need the Supabase upload endpoint anymore!
+            // We just save the base64 string directly to Postgres which guarantees immediate success.
+            if (pendingFileRef.current && imagePreview) {
+                finalImageUrl = imagePreview; // The base64 string
             }
 
             // Upsert memory
@@ -264,9 +276,9 @@ export default function MemoryModal({
                         <button
                             className="save-btn"
                             onClick={handleSave}
-                            disabled={saving || uploading || !title.trim()}
+                            disabled={saving || !title.trim()}
                         >
-                            {uploading ? 'Uploading photo…' : saving ? 'Saving…' : '✦ Save this memory'}
+                            {saving ? 'Saving…' : '✦ Save this memory'}
                         </button>
 
                         {existingMemory && !saving && (
