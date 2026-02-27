@@ -10,6 +10,7 @@ interface MemoryModalProps {
     existingMemory: Memory | null;
     slug: string;
     onSaved: (memory: Memory) => void;
+    onDeleted: (constellationId: string) => void;
     isCreator?: boolean;
 }
 
@@ -20,6 +21,7 @@ export default function MemoryModal({
     existingMemory,
     slug,
     onSaved,
+    onDeleted,
     isCreator = false,
 }: MemoryModalProps) {
     const [title, setTitle] = useState('');
@@ -132,14 +134,8 @@ export default function MemoryModal({
                 throw new Error('Could not delete memory. Please try again.');
             }
 
-            // Clear from parent state by passing a "null-like" memory or a special flag?
-            // Actually our parent state uses constellationId to unique.
-            // We can pass a dummy memory with the id and handle it in parent, or use a separate callback.
-            // Let's use a trick: onSaved with a specific flag or just update the signature.
-            // Since onSaved is (memory: Memory) => void, we might need a different callback.
-            // For now, I'll refresh the page or just handle it if I can.
-
-            window.location.reload(); // Simple solution for now to ensure consistency
+            onDeleted(constellation.id);
+            onClose();
         } catch (err: unknown) {
             setError(err instanceof Error ? err.message : 'Something went wrong.');
             setSaving(false);

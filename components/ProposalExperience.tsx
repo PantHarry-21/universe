@@ -132,6 +132,10 @@ export default function ProposalExperience({
         });
     };
 
+    const handleMemoryDeleted = (constellationId: string) => {
+        setMemories((prev) => prev.filter((m) => m.constellationId !== constellationId));
+    };
+
     const getLinesFor = (s: Scene) => {
         if (s === 'opening') return OPENING_LINES;
         if (s === 'buildup') return BUILDUP_LINES;
@@ -264,6 +268,7 @@ export default function ProposalExperience({
                 existingMemory={existingMemory}
                 slug={slug}
                 onSaved={handleMemorySaved}
+                onDeleted={handleMemoryDeleted}
                 isCreator={isCreator}
             />
 
